@@ -5,6 +5,7 @@ import { Formik } from "formik";
 import {categories, ratings, statuses} from "../../constants";
 import {addBook} from "../../state/ducks/books/action";
 import * as Yup from "yup";
+import {withRouter} from "react-router";
 
 
 const validationSchema = Yup.object().shape({
@@ -13,6 +14,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const AddBookForm = (props) => {
+    console.log(props);
   return (
     <div>
       <Formik
@@ -28,7 +30,7 @@ const AddBookForm = (props) => {
         validationSchema={validationSchema}
         onSubmit={(values) => {
             console.log(values);
-            props.addBook(values);
+            props.addBook(values, props.history);
         }}
       >
         {({
@@ -124,4 +126,4 @@ const mapDispatchToProps = {
     addBook: addBook
 };
 
-export default connect(null, mapDispatchToProps)(AddBookForm);
+export default withRouter(connect(null, mapDispatchToProps)(AddBookForm));

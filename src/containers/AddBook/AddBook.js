@@ -2,7 +2,8 @@ import React from "react";
 import { AddBookForm } from "../../components";
 import { Row, Col } from "reactstrap";
 
-const AddBook = () => {
+const AddBook = (props) => {
+    console.log(props);
   return (
     <Row>
       <Col xs={12}>

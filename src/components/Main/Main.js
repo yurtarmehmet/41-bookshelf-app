@@ -12,9 +12,9 @@ const Main = () => {
             <Route
               path={route.path}
               exact={route.exact}
-              component={() => {
+              component={(props) => {
                 const Comp = route.component;
-                return <MainLayout title={route.title}>{Comp}</MainLayout>;
+                return <MainLayout title={route.title} routerProps={props}>{Comp}</MainLayout>;
               }}
             />
           );

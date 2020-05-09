@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import routes from "../../routes";
+import { MainLayout } from "../../components";
 
 const Main = () => {
   return (
@@ -11,7 +12,10 @@ const Main = () => {
             <Route
               path={route.path}
               exact={route.exact}
-              component={route.component}
+              component={() => {
+                const Comp = route.component;
+                return <MainLayout title={route.title}>{Comp}</MainLayout>;
+              }}
             />
           );
         })}

@@ -2,7 +2,9 @@ import * as Actions from "./types"
 
 const initialState = {
     data: [],
-    loading: false
+    loading: false,
+    filter: "",
+    searchTerm: ""
 };
 
 const booksReducer = (state=initialState, action) => {
@@ -22,6 +24,16 @@ const booksReducer = (state=initialState, action) => {
           return {
               ...state,
               loading: true
+          };
+      case Actions.SET_FILTER:
+          return {
+              ...state,
+              filter: action.payload
+          };
+      case Actions.SEARCH_BOOKS:
+          return {
+              ...state,
+              searchTerm: action.payload
           };
       default:
           return state;

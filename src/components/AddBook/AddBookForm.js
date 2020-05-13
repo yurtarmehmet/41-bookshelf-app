@@ -15,23 +15,28 @@ const validationSchema = Yup.object().shape({
 
 const AddBookForm = (props) => {
     console.log(props);
+    let initialValues = {
+        title: "",
+        author: "",
+        category: "",
+        description: "",
+        rating: "",
+        imageUrl: "",
+        status: ""
+    };
+    if(props.isEdit && props.book){
+        initialValues = {...props.book};
+    }
   return (
     <div>
       <Formik
-        initialValues={{
-          title: "",
-          author: "",
-          category: "",
-          description: "",
-          rating: "",
-          imageUrl: "",
-          status: ""
-        }}
+        initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values) => {
             console.log(values);
             props.addBook(values, props.history);
         }}
+        enableReinitialize={true}
       >
         {({
           values,
@@ -114,7 +119,11 @@ const AddBookForm = (props) => {
                       })}
                   </Input>
               </FormGroup>
-            <Button color="primary">Add Book</Button>
+              {
+                  props.isEdit ?
+                      <Button color="primary">Save</Button> : <Button color="primary">Add</Button>
+              }
+
           </Form>
         )}
       </Formik>

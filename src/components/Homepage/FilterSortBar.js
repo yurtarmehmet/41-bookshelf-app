@@ -1,9 +1,9 @@
 import React from 'react';
 import { Nav, Container, Row, Col, InputGroup, InputGroupAddon, InputGroupText, Input} from 'reactstrap';
 import {connect} from "react-redux";
-import {StyledNavbarText} from "./FilterSortBarStyles";
+import {StyledNavbarText, StyledInputGroup} from "./FilterSortBarStyles";
 import {categories} from "../../constants";
-import {setFilter, searchBooks} from "../../state/ducks/books/action";
+import {setFilter, searchBooks, sortBooks} from "../../state/ducks/books/action";
 
 const FilterSortBar = (props) => {
     return (
@@ -27,7 +27,7 @@ const FilterSortBar = (props) => {
                         </Col>
 
                         <Col xs={6}>
-                            <InputGroup>
+                            <StyledInputGroup>
                                 <InputGroupAddon addonType="prepend">
                                     <InputGroupText>Search by name</InputGroupText>
                                 </InputGroupAddon>
@@ -35,7 +35,17 @@ const FilterSortBar = (props) => {
                                     //e.target.value
                                     props.search(e.target.value)
                                 }}/>
-                            </InputGroup>
+                            </StyledInputGroup>
+
+                            <StyledInputGroup>
+                                <Input type="select" name="select" id="exampleSelect" onChange={(e) => {
+                                    props.sort(e.target.value);
+                                }}>
+                                    <option value="">No Sort</option>
+                                    <option value="alphabetical">Sort Alphabetical</option>
+                                    <option value="rating">Sort by Rating</option>
+                                </Input>
+                            </StyledInputGroup>
                         </Col>
                     </Row>
                 </Container>
@@ -51,7 +61,8 @@ const mapStateToProps = (state) =>{
 
 const mapDispatchToProps = {
   changeFilter: setFilter,
-  search: searchBooks
+  search: searchBooks,
+  sort: sortBooks
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FilterSortBar);

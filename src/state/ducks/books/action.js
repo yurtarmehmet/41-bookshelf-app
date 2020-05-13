@@ -36,3 +36,9 @@ export const searchBooks = (searchTerm) => {
         dispatch({type: Actions.SEARCH_BOOKS, payload: searchTerm});
     }
 };
+
+export const sortBooks = (sortTerm) => {
+    return dispatch => {
+        dispatch({type: Actions.SORT_BOOKS, payload: sortTerm});
+    }
+};

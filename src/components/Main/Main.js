@@ -14,7 +14,7 @@ const Main = () => {
               exact={route.exact}
               component={(props) => {
                 const Comp = route.component;
-                return <MainLayout title={route.title} routerProps={props}>{Comp}</MainLayout>;
+                return <MainLayout title={route.title} routerProps={props} componentProps={route.componentProps}>{Comp}</MainLayout>;
               }}
             />
           );

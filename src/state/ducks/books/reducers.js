@@ -4,7 +4,8 @@ const initialState = {
     data: [],
     loading: false,
     filter: "",
-    searchTerm: ""
+    searchTerm: "",
+    sortTerm: ""
 };
 
 const booksReducer = (state=initialState, action) => {
@@ -34,6 +35,11 @@ const booksReducer = (state=initialState, action) => {
           return {
               ...state,
               searchTerm: action.payload
+          };
+      case Actions.SORT_BOOKS:
+          return {
+              ...state,
+              sortTerm: action.payload
           };
       default:
           return state;

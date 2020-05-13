@@ -35,11 +35,23 @@ class Homepage extends React.Component{
       })
     }
 
+    // Sorting
+    let sortedBooks = [];
+    if(this.props.sortTerm){
+      sortedBooks = [...filteredBooks].sort((book1, book2) => {
+         console.log(book1, book2, this.props.sortTerm);
+          return parseInt(book2[this.props.sortTerm]) - parseInt(book1[this.props.sortTerm])
+      });
+    }else{
+      sortedBooks = filteredBooks;
+    }
+
+
     let books = "";
-    if(filteredBooks.length < 1){
+    if(sortedBooks.length < 1){
       books = <h2>NO BOOKS HERE</h2>
     }else{
-      books = <Books items={filteredBooks}/>;
+      books = <Books items={sortedBooks}/>;
     }
     return <div>
       <FilterSortBar />
@@ -57,7 +69,8 @@ const mapStateToProps = (state) => {
     books: state.books.data,
     loading: state.books.loading,
     filter: state.books.filter,
-    searchTerm: state.books.searchTerm
+    searchTerm: state.books.searchTerm,
+    sortTerm: state.books.sortTerm
   }
 };
 

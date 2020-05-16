@@ -41,6 +41,17 @@ const booksReducer = (state=initialState, action) => {
               ...state,
               sortTerm: action.payload
           };
+      case Actions.EDIT_BOOK:
+          return {
+            ...state,
+            data: state.data.map((book) => {
+                if(book.id === action.payload.id){
+                    return action.payload;
+                }else{
+                    return book;
+                }
+            })
+          };
       default:
           return state;
   }

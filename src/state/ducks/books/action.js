@@ -42,3 +42,16 @@ export const sortBooks = (sortTerm) => {
         dispatch({type: Actions.SORT_BOOKS, payload: sortTerm});
     }
 };
+
+export const editBook = (id, values, history) => {
+    return dispatch => {
+        axios.put(`${apiHost}/books/${id}`, values).then((result) => {
+            console.log(result.data);
+            dispatch({type:Actions.EDIT_BOOK, payload: result.data})
+            //history.push("/");
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+
+};

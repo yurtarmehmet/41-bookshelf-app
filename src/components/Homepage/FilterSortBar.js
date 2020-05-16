@@ -29,7 +29,7 @@ const FilterSortBar = (props) => {
                         <Col xs={6}>
                             <StyledInputGroup>
                                 <InputGroupAddon addonType="prepend">
-                                    <InputGroupText>Search by name</InputGroupText>
+                                    <InputGroupText>Search by name or author</InputGroupText>
                                 </InputGroupAddon>
                                 <Input onChange={(e) => {
                                     //e.target.value

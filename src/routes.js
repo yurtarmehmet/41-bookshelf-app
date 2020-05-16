@@ -1,5 +1,5 @@
 import React from "react";
-import { Homepage, AddBook } from "./containers";
+import { Homepage, AddBook, BookDetail } from "./containers";
 
 const routes = [
   {
@@ -26,7 +26,14 @@ const routes = [
       isEdit: true
     },
     component: AddBook
-  }
+  },
+  {
+    title: "Book Detail",
+    path: "/book-detail/:id",
+    exact: false,
+    componentProps: {},
+    component: BookDetail
+  },
 ];
 
 export default routes;

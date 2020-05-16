@@ -7,7 +7,7 @@ const Books = (props) => {
         <Row>
             {
                 props.items.map((item) => {
-                    return <Col xs={3}>
+                    return <Col xs={props.view === "cards" ? 3 : 12}>
                         <Book {...item} />
                     </Col>
                 })

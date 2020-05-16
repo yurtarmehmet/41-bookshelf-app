@@ -3,14 +3,15 @@ import {connect} from "react-redux";
 import { Button, Form, FormGroup, Label, Input, FormText, FormFeedback } from "reactstrap";
 import { Formik } from "formik";
 import {categories, ratings, statuses} from "../../constants";
-import {addBook} from "../../state/ducks/books/action";
+import {addBook, editBook} from "../../state/ducks/books/action";
 import * as Yup from "yup";
 import {withRouter} from "react-router";
 
 
 const validationSchema = Yup.object().shape({
     title: Yup.string().required("Title is a required field"),
-    author: Yup.string().required("Author is a required field")
+    author: Yup.string().required("Author is a required field"),
+    review: Yup.string().min(30, "30 karakterden az giremezsiniz")
 });
 
 const AddBookForm = (props) => {
@@ -18,13 +19,15 @@ const AddBookForm = (props) => {
     let initialValues = {
         title: "",
         author: "",
-        category: "",
+        category: "JavaScript",
         description: "",
-        rating: "",
+        rating: "5",
         imageUrl: "",
-        status: ""
+        status: "Not Read",
+        review: ""
     };
     if(props.isEdit && props.book){
+        /// review var mi - Object.keys().indexOf("review") > -1
         initialValues = {...props.book};
     }
   return (
@@ -34,7 +37,11 @@ const AddBookForm = (props) => {
         validationSchema={validationSchema}
         onSubmit={(values) => {
             console.log(values);
-            props.addBook(values, props.history);
+            if(props.isEdit){
+                props.editBook(props.book.id, values, props.history);
+            }else{
+                props.addBook(values, props.history);
+            }
         }}
         enableReinitialize={true}
       >
@@ -119,6 +126,13 @@ const AddBookForm = (props) => {
                       })}
                   </Input>
               </FormGroup>
+              <FormGroup>
+                  <Label for="review">Review</Label>
+                  <Input type="textarea" name="review" id="review" value={values.review} onChange={handleChange} invalid={errors.review}/>
+                  {
+                      errors.review && <FormFeedback>{errors.review}</FormFeedback>
+                  }
+              </FormGroup>
               {
                   props.isEdit ?
                       <Button color="primary">Save</Button> : <Button color="primary">Add</Button>
@@ -132,7 +146,8 @@ const AddBookForm = (props) => {
 };
 
 const mapDispatchToProps = {
-    addBook: addBook
+    addBook: addBook,
+    editBook: editBook
 };
 
 export default withRouter(connect(null, mapDispatchToProps)(AddBookForm));
